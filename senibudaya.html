@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Sinergi Agama, Budaya, dan Globalisasi</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap');
+:root{--bg:#1b100b;--panel:#2a1911;--panel2:#382118;--brown:#6f432c;--accent:#b98252;--cream:#f3e5d1;--muted:#c9b39a;--line:rgba(243,229,209,.14);}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--cream);font-family:Inter,system-ui,sans-serif}
+.deck{height:100%;position:relative}
+.slide{
+  position:absolute;inset:0;
+  padding:6vh 8vw 12vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-start;
+  opacity:0;transform:translateX(35px) scale(.985);
+  transition:opacity .45s ease,transform .55s ease;
+  pointer-events:none;
+  background:radial-gradient(circle at 80% 20%,rgba(185,130,82,.13),transparent 30%),linear-gradient(135deg,#180e09,#26150e 60%,#1a0f0b);
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.slide.active{opacity:1;transform:none;pointer-events:auto}
+.slide:before{content:"";position:fixed;inset:18px;border:1px solid var(--line);border-radius:24px;pointer-events:none;z-index:0}
+.slide>*{position:relative;z-index:1;width:100%}
+.eyebrow{letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-size:.8rem;font-weight:700;margin-bottom:18px}
+.title{font-family:'DM Serif Display',serif;font-size:clamp(2.2rem,6vw,7rem);line-height:1.02;max-width:1050px;margin:0 0 24px;word-wrap:break-word}
+.subtitle{font-size:clamp(1rem,2vw,1.35rem);line-height:1.65;color:var(--muted);max-width:850px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;max-width:1100px;width:100%}
+.grid.three{grid-template-columns:repeat(3,1fr)}
+.card{background:linear-gradient(145deg,rgba(56,33,24,.92),rgba(35,21,14,.92));border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 18px 60px rgba(0,0,0,.18)}
+.card h3{margin:0 0 10px;font-size:1.05rem}
+.card p,.card li{color:var(--muted);line-height:1.6;font-size:.95rem}
+.card ul{padding-left:20px;margin:10px 0 0}
+.quote{border-left:3px solid var(--accent);padding:10px 0 10px 22px;color:var(--cream);font-size:clamp(1.05rem,2.2vw,2rem);line-height:1.45;max-width:900px}
+.bigword{font-family:'DM Serif Display';font-size:clamp(4rem,11vw,11rem);color:rgba(185,130,82,.18);position:absolute;right:7vw;bottom:5vh;user-select:none}
+.split{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;width:100%}
+.mini{font-size:.95rem;color:var(--muted)}
+.tag{display:inline-flex;padding:7px 12px;border:1px solid var(--line);border-radius:999px;color:var(--muted);margin:4px}
+.comparison{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.comparison>div{padding:20px;border-radius:16px;background:rgba(255,255,255,.035);border:1px solid var(--line)}
+.comparison strong{display:block;color:var(--accent);margin-bottom:8px}
+.quote-card{max-width:1000px}
+.footer{position:fixed;left:7vw;right:7vw;bottom:24px;display:flex;align-items:center;gap:18px;z-index:5;color:var(--muted);font-size:.85rem}
+.progress{height:3px;flex:1;background:rgba(243,229,209,.12);border-radius:10px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .35s}
+.controls{position:fixed;right:7vw;bottom:17px;z-index:6;display:flex;gap:8px}
+.btn{border:1px solid var(--line);background:rgba(42,25,17,.85);color:var(--cream);border-radius:12px;width:38px;height:38px;cursor:pointer;font-size:1rem}
+.btn:hover{background:var(--brown)}
+.hint{position:fixed;right:7vw;top:24px;color:rgba(243,229,209,.45);font-size:.75rem;z-index:5}
+.timeline{display:flex;gap:8px;flex-wrap:wrap;margin-top:25px}
+.timeline span{border:1px solid var(--line);padding:8px 11px;border-radius:9px;color:var(--muted)}
+.accent{color:var(--accent)}
+
+@media(max-width:850px){
+  .slide{padding:5.5vh 6vw 14vh}
+  .grid,.grid.three,.split,.comparison{grid-template-columns:1fr}
+  .title{font-size:clamp(1.9rem,8vw,3.2rem);line-height:1.08}
+  .card{padding:18px}
+  .card h3{font-size:1rem}
+  .card p,.card li{font-size:.9rem}
+  .quote{font-size:clamp(1rem,4.5vw,1.4rem);padding-left:16px}
+  .bigword{display:none}
+  .hint{display:none}
+  .eyebrow{font-size:.7rem;margin-bottom:12px}
+  .grid{gap:14px}
+  .grid.three{gap:12px}
+  .footer{left:6vw;right:6vw;bottom:14px;font-size:.75rem}
+  .controls{right:6vw;bottom:9px}
+  .btn{width:34px;height:34px}
+}
+@media(max-width:420px){
+  .title{font-size:clamp(1.6rem,8.5vw,2.4rem)}
+  .subtitle{font-size:.92rem}
+  .slide{padding:5vh 5.5vw 15vh}
+}
+</style>
+</head>
+<body>
+<div class="deck">
+<section class="slide active"><div class="eyebrow">Presentasi · 2026</div><h1 class="title">Sinergi Agama, Budaya, dan Globalisasi</h1><p class="subtitle">SMK MIKAEL SURAKARTA</p><p class="mini" style="margin-top:26px">Mikael Adonai Hizkia Prasetyo XRPL 21<br>Gabriel Lightning Elmagnifico XRPL 16</p></section>
+<section class="slide"><div class="eyebrow">01 · Latar Belakang</div><h2 class="title" style="font-size:clamp(1.9rem,4.5vw,5rem)">Agama dan budaya tumbuh berdampingan.</h2><div class="grid"><div class="card"><h3>Indonesia</h3><p>Hubungan agama dan budaya tampak dalam akulturasi seperti nyadran, sedekah laut, wayang kulit, Tari Saman, kaligrafi, dan arsitektur masjid.</p></div><div class="card"><h3>Tantangan baru</h3><p>Globalisasi dan digitalisasi membawa budaya populer, media sosial, serta gaya hidup baru yang dapat menjauhkan generasi muda dari budaya lokal.</p></div></section>
+<section class="slide"><div class="eyebrow">02 · Fokus Masalah</div><h2 class="title" style="font-size:clamp(1.9rem,4.5vw,5rem)">Empat pertanyaan.</h2><div class="grid three"><div class="card"><h3>Budaya Lokal</h3><p>Mengapa budaya lokal dijauhi anak muda?</p></div><div class="card"><h3>Agama mengikis Budaya?</h3><p>Pendapat tentang pernyataan "agama mengikis budaya"</p></div><div class="card"><h3>agama mempengaruhi budaya?</h3><p>Apakah Agama mempengaruhi Budaya atau sebaliknya?</p></div><div class="card"><h3>fungsi</h3><p>Apa fungsi agama dalam seni budaya?</p></div></div></section>
+<section class="slide"><div class="eyebrow">03 · Metode Penelitian</div><h2 class="title" style="font-size:clamp(1.9rem,4.8vw,5.5rem)">Kami menggunakan deskriptif kualitatif.</h2><div class="split"><div><div class="card"><h3>Wawancara langsung</h3><p>Kami memberikan empat pertanyaan yang sama untuk tiga narasumber untuk membandingkan perspektif yaitu:</p><div class="timeline"><span>Pak Bambang · Tokoh Kesenian</span><span>Pak Bayu · Ketua RT</span><span>Romo Dio · Tokoh Agama</span></div></div></div><div><div class="card"><h3>Studi pustaka</h3><p>Jurnal, sumber akademik, dan artikel terpercaya digunakan untuk memperkuat kajian teori serta analisis tentang globalisasi, profesi, dan teknologi.</p></div></div></div></section>
+
+<section class="slide"><div class="eyebrow">04 · Mengapa budaya lokal dijauhi oleh kalangan muda</div><h2 class="title" style="font-size:clamp(1.7rem,4.5vw,5rem)">mengapa budaya lokal dijauhi anak muda?.</h2><div class="grid three"><div class="card"><h3>Pak Bambang</h3><p>Budaya lokal dianggap kuno dan tidak sesuai dengan kebiasaan anak muda sekarang.Padahal wujud budaya itu boleh lama tetapi nilai di dalamnya tidak pernah luntur/usang.</p></div><div class="card"><h3>Pak Bayu</h3><p>Budaya lokal itu diangggap terlalu kuno dan kalah menarik dibanding budaya luar negri seperti K-pop yang kini menjadi acuan anak muda..</p></div><div class="card"><h3>Romo Dio</h3><p>Tidak sepenuhnya benar, masih ada anak muda yang mencintai budaya, namun terjadi penurunan karena generasi sekarang lebih menyukai sesuatu yang instan, cepat dan praktis.</p></div></div><div class="quote" style="margin-top:20px">budaya lokal dijauhi sebagian anak muda karena dianggap kuno, kurang menarik, dan kalah populer dibandingkan budaya luar negeri seperti K-pop. Selain itu, perkembangan zaman membuat anak muda cenderung memilih hal-hal yang lebih cepat, praktis, dan sesuai dengan tren..</div></section>
+
+<section class="slide"><div class="eyebrow">05 · Agama mengikis Budaya?</div><h2 class="title" style="font-size:clamp(1.7rem,4.5vw,5rem)">Apakah Agama mengikis Budaya?.</h2><div class="grid three"><div class="card"><h3>Pak Bambang</h3><p>itu tidak benar. Yang terjadi justru agama menjiwai budaya.</p></div><div class="card"><h3>Pak Bayu</h3><p>Tidak Benar, yang terjadi malah agama membangun budaya.</p></div><div class="card"><h3>Romo dio</h3><p>Tidak setuju. Agama justru harus membudaya agar ajarannya benar benar membumi.</p></div></div><div class="quote" style="margin-top:25px">Agama dapat memengaruhi, membangun, dan memberi nilai pada budaya. Dalam prosesnya, beberapa budaya mungkin mengalami perubahan, tetapi budaya yang sesuai dengan nilai agama dapat tetap dipertahankan..</div></section>
+
+<section class="slide"><div class="eyebrow">06 · Agama mempengaruhi budaya?</div><h2 class="title" style="font-size:clamp(1.7rem,4.5vw,5rem)">Apakah Agama mempengaruhi Budaya?.</h2><div class="grid three"><div class="card"><h3>Pak Bambang</h3><p>itu benar, Agana dijadikan dasar untuk menjiwai seluruh sisi kehidupan budaya.</p></div><div class="card"><h3>Pak Bayu</h3><p>ya, karena agama memiliki aturan baku; jika dipadukan dengan budaya akan menghasilkan nilai yang harmonis.</p></div><div class="card"><h3>Romo dio</h3><p>Bersifat timbal balik. agama merefleksikan budaya agar masyarakat semakin mencintai budaya setempat.</p></div></div><div class="quote" style="margin-top:25px">Agama memengaruhi budaya dengan memberikan nilai dan pedoman dalam kehidupan masyarakat. Di sisi lain, budaya dapat menjadi sarana untuk menerapkan nilai agama sekaligus memperkuat kecintaan terhadap budaya setempat.</div></section>
+
+<section class="slide"><div class="eyebrow">07 · agama dalam seni budaya</div><h2 class="title" style="font-size:clamp(1.7rem,4.5vw,5rem)">apa fungsi Agama dalam seni budaya?</h2><div class="grid three"><div class="card"><h3>Pak Bambang</h3><p>fungsi agama dalam seni budaya itu untuk menjiwai kesenian agar memiliki nilai yuang baik</p></div><div class="card"><h3>Pak Bayu</h3><p>sebagai acuan agar budaya condong ke agama atau sebaliknya.</p></div><div class="card"><h3>Romo dio</h3><p>Fungsinya untuk menjernihkan budaya sehingga budaya tersebut mampu menjernihkan akal budi manusia</p></div></div><div class="quote" style="margin-top:25px"> Agama berfungsi sebagai pedoman dan pemberi nilai dalam seni budaya, sehingga kesenian tidak hanya mengutamakan keindahan, tetapi juga dapat mengandung nilai moral, kebaikan, dan membentuk akal budi manusia.</div></section>
+
+<section class="slide"><div class="eyebrow">08 · Hasil Wawancara</div><h2 class="title" style="font-size:clamp(1.7rem,4.5vw,5rem)">Tiga narasumber, satu benang merah.</h2><div class="grid three"><div class="card"><h3>Bambang</h3><p>Budaya lokal dianggap kuno, tetapi nilai di dalamnya tidak pernah usang. Agama menjiwai budaya.</p></div><div class="card"><h3>Bayu</h3><p>Budaya lokal kalah menarik dibanding budaya luar. Agama membantu membangun budaya yang harmonis.</p></div><div class="card"><h3>Romo Dio</h3><p>Minat anak muda menurun karena menyukai sesuatu yang instan. Agama perlu membumi dan ikut mengembangkan budaya.</p></div></div><div class="quote" style="margin-top:25px">Ketiganya sepakat: agama bukan ancaman bagi budaya, melainkan penjiwa dan pengarahnya.</div></section>
+
+<section class="slide"><div class="eyebrow">09 · Kesimpulan</div><h2 class="title" style="font-size:clamp(1.9rem,5vw,6rem)">Agama adalah kompas, budaya adalah ekspresi, teknologi adalah alat.</h2><div class="quote-card card"><p style="font-size:1.05rem;line-height:1.8">Generasi muda tidak perlu menolak budaya populer maupun dunia kerja modern. Yang dibutuhkan adalah kemampuan menyaring perubahan dengan nilai kesederhanaan, kejujuran, tanggung jawab, dan kepedulian terhadap sesama.</p><div class="timeline"><span>Identitas</span><span>Etika</span><span>Adaptasi</span><span>Integritas</span></div></div></section>
+
+<section class="slide"><div class="eyebrow">10 · Penutup</div><div class="quote">"Menjadi modern bukan berarti meninggalkan identitas, dan menjadi beriman bukan berarti menolak perkembangan zaman."</div><p class="subtitle" style="margin-top:30px">Apakah ada pertanyaan?.</p></section>
+</div>
+<div class="footer"><span id="counter">01 / 10</span><div class="progress"><i id="bar"></i></div><span>Presentasi</span></div>
+<div class="controls"><button class="btn" id="prev" aria-label="Sebelumnya">←</button><button class="btn" id="next" aria-label="Berikutnya">→</button></div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];let index=0;const bar=document.getElementById('bar'),counter=document.getElementById('counter');
+function show(n){index=(n+slides.length)%slides.length;slides.forEach((s,i)=>{s.classList.toggle('active',i===index);if(i===index)s.scrollTop=0;});counter.textContent=String(index+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');bar.style.width=((index+1)/slides.length*100)+'%';}
+function next(){show(index+1)} function prev(){show(index-1)}
+document.getElementById('next').onclick=next;document.getElementById('prev').onclick=prev;
+document.addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();next()}else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();prev()}else if(e.key==='Home'){show(0)}else if(e.key==='End'){show(slides.length-1)}});
+let startX=null;document.addEventListener('touchstart',e=>startX=e.changedTouches[0].clientX);document.addEventListener('touchend',e=>{if(startX===null)return;const dx=e.changedTouches[0].clientX-startX;if(Math.abs(dx)>50)dx<0?next():prev();startX=null});show(0);
+</script>
+</body></html>
